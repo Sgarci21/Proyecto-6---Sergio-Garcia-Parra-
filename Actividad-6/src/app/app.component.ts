@@ -11,7 +11,7 @@ import { HeaderComponent } from './components/Header/Header.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterOutlet, NavComponent, HeaderComponent],
+  imports: [CommonModule, RouterModule, RouterOutlet, NavComponent, HeaderComponent,ToastrService],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -30,4 +30,5 @@ export class AppComponent implements OnInit {
       console.error('Error al cargar los usuarios:', error);
     }
   }
+  
 }
