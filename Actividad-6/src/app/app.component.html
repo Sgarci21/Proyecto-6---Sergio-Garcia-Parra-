@@ -1,8 +1,17 @@
-<body>
-  <header>
-    <app-header></app-header>
-  </header>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-</body>
+
+<header>
+  <app-nav></app-nav>
+</header>
+
+<main>
+
+  <div>
+    
+    <router-outlet />
+    
+    <ngx-sonner-toaster richColors position="top-center"  />
+    
+  </div>
+
+</main>
+

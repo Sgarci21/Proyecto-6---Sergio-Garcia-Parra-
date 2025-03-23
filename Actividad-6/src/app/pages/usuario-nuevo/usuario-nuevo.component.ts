@@ -1,20 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
-import { Router, RouterLink, RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr'; // Importa ToastrService
+import { FormGroup, ReactiveFormsModule, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-nuevo-usuario',
-  standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
-  templateUrl: './new-usuario.component.html',
-  styleUrl: './new-usuario.components.css'
+  imports: [ReactiveFormsModule, RouterLink],
+  templateUrl: './nuevo-usuario.component.html',
+  styleUrl: './nuevo-usuario.component.css'
 })
-export class NuevoUsuarioComponent {
+export class UsuarioNuevoComponent {
 
   userForm: FormGroup;
   router = inject(Router);
-  toast = inject(ToastrService); // Inyecta ToastrService
 
   constructor() {
     this.userForm = new FormGroup({
@@ -43,24 +41,27 @@ export class NuevoUsuarioComponent {
         Validators.minLength(8),
         Validators.maxLength(16)
       ])
-    });
+    })
   }
 
   getDataForm() {
-    this.userForm.reset();
+    this.userForm.reset()
   }
 
   checkControl(controlName: string, errorName: string): boolean | undefined {
-    return this.userForm.get(controlName)?.hasError(errorName) && this.userForm.get(controlName)?.touched;
+    return this.userForm.get(controlName)?.hasError(errorName) && this.userForm.get(controlName)?.touched
   }
 
   botonHecho() {
-    if (this.userForm.valid) {
-      this.toast.success('¡Usuario creado correctamente!', 'Éxito'); // Notificación de éxito
-      this.router.navigate(['/usuarios']);
-    } else {
-      this.toast.error('Por favor, rellena todos los campos correctamente antes de continuar.', 'Error'); // Notificación de error
-      this.userForm.markAllAsTouched();
-    }
-  }
+        if (this.userForm.valid) {
+          toast.success('¡Usuario creado correctamente!');
+          // console.log('Datos del formulario:', this.userForm.value);
+          this.router.navigate(['/usuarios']);
+        } else {
+          toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');
+          this.userForm.markAllAsTouched();
+          
+        }
+      }
+
 }

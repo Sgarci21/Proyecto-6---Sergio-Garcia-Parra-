@@ -1,20 +1,19 @@
-import { Component, inject } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr'; // Importa ToastrService
+import { Component, inject, Input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-actualizar-usuario',
-  standalone: true,
-  imports: [ReactiveFormsModule, RouterModule], // Asegúrate de incluir RouterModule
-  templateUrl: './update-usuario.component.html', // Verifica que este archivo exista
-  styleUrl: './update-usuario.component.css' // Verifica que este archivo exista
+  imports: [ReactiveFormsModule, ],
+  templateUrl: './actualizar-usuario.component.html',
+  styleUrl: './actualizar-usuario.component.css'
 })
 export class ActualizarUsuarioComponent {
 
   userForm: FormGroup;
   router = inject(Router);
-  toast = inject(ToastrService); // Inyecta ToastrService
+
 
   constructor() {
     this.userForm = new FormGroup({
@@ -43,25 +42,30 @@ export class ActualizarUsuarioComponent {
         Validators.minLength(8),
         Validators.maxLength(16)
       ])
-    });
+    })
   }
 
+  
+
   getDataForm() {
-    this.userForm.reset();
+    this.userForm.reset()
   }
 
   checkControl(controlName: string, errorName: string): boolean | undefined {
-    return this.userForm.get(controlName)?.hasError(errorName) && this.userForm.get(controlName)?.touched;
+    return this.userForm.get(controlName)?.hasError(errorName) && this.userForm.get(controlName)?.touched
   }
 
   botonHecho() {
-    if (this.userForm.valid) {
-      this.toast.success('¡Usuario actualizado correctamente!', 'Éxito'); // Notificación de éxito
-      this.router.navigate(['/usuarios']);
-    } else {
-      this.toast.error('Por favor, rellena todos los campos correctamente antes de continuar.', 'Error'); // Notificación de error
-      this.userForm.markAllAsTouched();
+      if (this.userForm.valid) {
+        toast.success('¡Usuario actualizado correctamente!');
+        // console.log('Datos del formulario:', this.userForm.value);
+        this.router.navigate(['/usuarios']);
+      } else {
+        toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');
+        this.userForm.markAllAsTouched();
+        
+      }
     }
-  }
-}
+
+ }
 

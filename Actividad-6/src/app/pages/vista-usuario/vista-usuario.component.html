@@ -1,0 +1,40 @@
+<div class="bg-custom min-vh-100 d-flex flex-column align-items-center justify-content-center">
+  
+
+    <figure class="text-center p-3 mt-3 w-100 w-md-75 w-lg-50">
+        <img [src]="usuario.image" [alt]="usuario.first_name" class="img-fluid rounded-5 mx-auto d-block usuario-img">
+    </figure>
+  
+  
+    <div class="border border-3 bg-dark rounded-5 p-3 w-100 w-md-75 w-lg-50 text-center">
+  
+        <div class="p-2">
+            <p class="text-warning fw-bold">Nombre y Apellido</p>
+            <p class="text-white">{{usuario.first_name}} {{usuario.last_name}}</p>
+        </div>
+  
+        <div class="p-2">
+            <p class="text-warning fw-bold">Username</p>
+            <p class="text-white">{{usuario.username}}</p>
+        </div>
+  
+        <div class="p-2">
+            <p class="text-warning fw-bold">Email</p>
+            <p class="text-white">{{usuario.email}}</p>
+        </div>
+  
+  
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-2 py-3 w-50 mx-auto">
+            <button class="btn btn-warning rounded-5 text-danger w-100 w-md-auto w-lg-25" 
+                    [routerLink]="['/actualizarUsuario', usuario._id]">Actualizar</button>
+  
+            <button class="btn btn-warning rounded-5 text-danger w-100 w-md-auto w-lg-25" 
+                    (click)="eliminarUsuario(usuario._id)">Borrar</button>
+  
+            <button class="btn btn-warning rounded-5 text-danger w-100 w-md-auto w-lg-25" 
+                    [routerLink]="['/usuarios']">Volver</button>
+        </div>
+  
+    </div>
+  
+  </div>
