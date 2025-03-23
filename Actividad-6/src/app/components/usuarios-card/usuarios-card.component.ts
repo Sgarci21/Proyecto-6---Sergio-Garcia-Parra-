@@ -1,37 +1,32 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { IUsuario } from '../../interfaces/iusuario.interface';
 import { UsuariosService } from '../../services/usuarios.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuarios-card',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [RouterModule],
   templateUrl: './usuarios-card.component.html',
   styleUrl: './usuarios-card.component.css'
 })
 export class UsuariosCardComponent {
-  @Input() miUsuario!: IUsuario | any
-  usuariosService = inject(UsuariosService)
+  @Input() miUsuario!: IUsuario;
+  usuariosService = inject(UsuariosService);
   @Output() deleteItemEmit: EventEmitter<Boolean> = new EventEmitter();
-  router = inject(Router)
-
+  toast = inject(ToastrService);
 
   eliminarUsuario(id: string) {
-    toast(`Vas a borrar al usuario ${this.miUsuario.first_name} ${this.miUsuario.last_name} `, {
-      action: {
-        label: 'Aceptar',
-        onClick: async () => {
-          await this.usuariosService.delete(id)
-          if (this.deleteItemEmit.observed) {
-            this.deleteItemEmit.emit(true)
-          } else {
-            this.router.navigate(['/usuarios']);
-          }
-
+    if (confirm(`¿Estás seguro de que deseas eliminar al usuario ${this.miUsuario.first_name} ${this.miUsuario.last_name}?`)) {
+      this.usuariosService.delete(id).then(() => {
+        if (this.deleteItemEmit.observed) {
+          this.deleteItemEmit.emit(true);
         }
-      }
-    });
+        this.toast.success('Usuario eliminado correctamente');
+      }).catch(() => {
+        this.toast.error('Error al eliminar el usuario');
+      });
+    }
   }
-
 }

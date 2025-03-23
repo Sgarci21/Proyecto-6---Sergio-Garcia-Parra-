@@ -13,7 +13,7 @@ export const routes: Routes = [
     { path: "home", component: HomeComponent },
     { path: "usuarios", component: UsuariosComponent },
     { path: "usuarios/:id", component: UsuariosViewComponent },
-    { path: "nuevoUsuario", component: NewUsuarioComponent },
-    { path: "actualizarUsuario/:id", component: UpdateUsuarioComponent },
+    { path: "newUsuario", component: NewUsuarioComponent },
+    { path: "updateusuario/:id", component: UpdateUsuarioComponent },
     { path: "**", component: C404Component },
 ];

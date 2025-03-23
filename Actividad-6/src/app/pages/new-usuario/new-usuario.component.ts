@@ -1,18 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { toast } from 'ngx-sonner';
+import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-usuario',
-  imports: [ReactiveFormsModule, RouterLink],
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './new-usuario.component.html',
   styleUrl: './new-usuario.components.css'
 })
 export class NewUsuarioComponent {
-
   userForm: FormGroup;
   router = inject(Router);
+  toast = inject(ToastrService);
 
   constructor() {
     this.userForm = new FormGroup({
@@ -41,27 +42,24 @@ export class NewUsuarioComponent {
         Validators.minLength(8),
         Validators.maxLength(16)
       ])
-    })
+    });
   }
 
   getDataForm() {
-    this.userForm.reset()
+    this.userForm.reset();
   }
 
   checkControl(controlName: string, errorName: string): boolean | undefined {
-    return this.userForm.get(controlName)?.hasError(errorName) && this.userForm.get(controlName)?.touched
+    return this.userForm.get(controlName)?.hasError(errorName) && this.userForm.get(controlName)?.touched;
   }
 
   botonHecho() {
-        if (this.userForm.valid) {
-          toast.success('¡Usuario creado correctamente!');
-          // console.log('Datos del formulario:', this.userForm.value);
-          this.router.navigate(['/usuarios']);
-        } else {
-          toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');
-          this.userForm.markAllAsTouched();
-          
-        }
-      }
-
+    if (this.userForm.valid) {
+      this.toast.success('¡Usuario creado correctamente!');
+      this.router.navigate(['/usuarios']);
+    } else {
+      this.toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');
+      this.userForm.markAllAsTouched();
+    }
+  }
 }
