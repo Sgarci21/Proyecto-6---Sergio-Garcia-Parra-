@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { toast } from 'ngx-sonner';
 
 @Component({
-  selector: 'app-nuevo-usuario',
-  imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './nuevo-usuario.component.html',
-  styleUrl: './nuevo-usuario.component.css'
+  selector: 'app-usuario-nuevo',
+  imports: [ReactiveFormsModule],
+  templateUrl: './usuario-nuevo.component.html', 
+  styleUrls: ['./usuario-nuevo.component.css'] 
+
 })
 export class UsuarioNuevoComponent {
-
   userForm: FormGroup;
   router = inject(Router);
 
@@ -41,27 +41,24 @@ export class UsuarioNuevoComponent {
         Validators.minLength(8),
         Validators.maxLength(16)
       ])
-    })
+    });
   }
 
   getDataForm() {
-    this.userForm.reset()
+    this.userForm.reset();
   }
 
   checkControl(controlName: string, errorName: string): boolean | undefined {
-    return this.userForm.get(controlName)?.hasError(errorName) && this.userForm.get(controlName)?.touched
+    return this.userForm.get(controlName)?.hasError(errorName) && this.userForm.get(controlName)?.touched;
   }
 
   botonHecho() {
-        if (this.userForm.valid) {
-          toast.success('¡Usuario creado correctamente!');
-          // console.log('Datos del formulario:', this.userForm.value);
-          this.router.navigate(['/usuarios']);
-        } else {
-          toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');
-          this.userForm.markAllAsTouched();
-          
-        }
-      }
-
+    if (this.userForm.valid) {
+      toast.success('¡Usuario creado correctamente!');
+      this.router.navigate(['/usuarios']);
+    } else {
+      toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');
+      this.userForm.markAllAsTouched();
+    }
+  }
 }

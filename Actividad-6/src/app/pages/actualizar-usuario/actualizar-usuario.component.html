@@ -49,6 +49,13 @@
                 @if(checkControl('password', 'maxlength')){ <p class="error">Longitud máxima 16 caracteres</p> }
             </div>
 
+            <div>
+                
+                <form [formGroup]="userForm" (ngSubmit)="botonHecho()">
+                 -
+                </form>
+              </div>`,
+
             <a class="btn btn-warning p-3 rounded mb-2" (click)="botonHecho()">Hecho!</a>
 
         </form>
