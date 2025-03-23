@@ -1,0 +1,21 @@
+<section class="usuarios">
+    <div class="container text-center py-4 ">
+        
+        @for(usuario of misUsuarios; track usuario.id){
+            
+           <app-usuarios-card [miUsuario]="usuario"></app-usuarios-card>
+
+        }
+        
+    </div>
+</section>
+
+<div class="d-flex justify-content-around py-5 gap-3">
+
+    <button class="btn btn-danger" (click)="anterior()">PREV</button> 
+
+    <p class="border rounded-5 p-3">{{page}}</p>
+
+    <button class="btn btn-danger"(click)="siguiente()">NEXT</button>
+
+</div>

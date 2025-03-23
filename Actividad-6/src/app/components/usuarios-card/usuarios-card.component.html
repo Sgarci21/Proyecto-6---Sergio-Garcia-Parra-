@@ -1,1 +1,25 @@
-<p>usuarios-card works!</p>
+
+<section class="container py-4 border border-3 rounded-5 border-danger mb-4 ">
+    <div class="row ">
+      <figure class="col-12 col-md-3">
+        <img class="img-fluid rounded-5" [src]="miUsuario.image" [alt]="miUsuario.username">
+      </figure>
+      <div class="col-12 col-md-9">
+        <h1 class="text-danger">{{miUsuario.first_name}}</h1>
+        <h1 class="text-danger">{{miUsuario.last_name}}</h1>
+        <p>Username:  {{miUsuario.username}}</p>
+        <p>Email: {{miUsuario.email}}</p>
+
+        <div class="d-flex justify-content-between py-5 gap-3">
+
+            <button class="btn btn-warning" [routerLink]="['/usuarios', miUsuario._id]">Ver Usuario</button>
+            <button class="btn btn-warning" (click)="eliminarUsuario(miUsuario._id)">Eliminar Usuario</button>
+            <button class="btn btn-warning" [routerLink]="['/actualizarUsuario', miUsuario._id]">Actualizar Usuario</button>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
