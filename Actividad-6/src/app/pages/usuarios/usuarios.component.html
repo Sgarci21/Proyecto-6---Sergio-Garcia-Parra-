@@ -1,12 +1,12 @@
 <section class="usuarios">
-    <div class="container text-center py-4 ">
-        
+    <div class="container text-center py-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
         @for(usuario of misUsuarios; track usuario.id){
-            
-           <app-usuarios-card [miUsuario]="usuario"></app-usuarios-card>
-
+            <div class="col d-flex align-items-stretch"> 
+                <app-usuarios-card class="w-100" [miUsuario]="usuario"></app-usuarios-card>
+            </div>
         }
-        
+        </div>
     </div>
 </section>
 
@@ -16,6 +16,7 @@
 
     <p class="border rounded-5 p-3">{{page}}</p>
 
-    <button class="btn btn-danger"(click)="siguiente()">Siguiente</button>
+    
+    <button class="btn btn-danger" (click)="siguiente()">Siguiente</button>
 
 </div>

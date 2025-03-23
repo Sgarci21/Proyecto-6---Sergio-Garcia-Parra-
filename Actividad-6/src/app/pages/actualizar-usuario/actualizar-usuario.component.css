@@ -1,10 +1,10 @@
 .error {
   font-size: 80%;
-  color: tomato;
+  color: rgb(121, 24, 7);
 }
 
 input.ng-invalid.ng-touched {
-  border-bottom: 3px solid tomato;
+  border-bottom: 3px solid rgb(209, 9, 9);
 }
 
 input.ng-valid.ng-touched {

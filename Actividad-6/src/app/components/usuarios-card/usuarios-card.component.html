@@ -1,24 +1,26 @@
-
-<section class="container py-4 border border-3 rounded-5 border-danger mb-4 ">
-  <div class="row ">
-    <figure class="col-3 col-md-3">
-      <img class="img-fluid rounded-5" [src]="miUsuario.image" [alt]="miUsuario.username">
+<div class="card bg-dark text-white text-center p-3 h-100">
+    <figure class="p-3">
+        <img [src]="miUsuario.image" [alt]="miUsuario.first_name" class="usuario-img mx-auto">
     </figure>
-    <div class="col-md-3 col-md-9">
-      <h1 class="text-danger">{{miUsuario.first_name}}</h1>
-      <h1 class="text-danger">{{miUsuario.last_name}}</h1>
-      <p>Username:  {{miUsuario.username}}</p>
-      <p>Email: {{miUsuario.email}}</p>
 
-      <div class="d-flex justify-content-between py-5 gap-3">
+    <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+            <h5 class="text-danger fw-bold">Nombre</h5>
+            <p>{{ miUsuario.first_name }} {{ miUsuario.last_name }}</p>
 
-          <button class="btn btn-warning" [routerLink]="['/usuarios', miUsuario._id]">Ver Usuario</button>
-          <button class="btn btn-warning" (click)="eliminarUsuario(miUsuario._id)">Eliminar Usuario</button>
-          <button class="btn btn-warning" [routerLink]="['/actualizarUsuario', miUsuario._id]">Actualizar Usuario</button>
+            <h5 class="text-danger fw-bold">Username</h5>
+            <p>{{ miUsuario.username }}</p>
 
-      </div>
+            <h5 class="text-danger fw-bold">Email</h5>
+            <p>{{ miUsuario.email }}</p>
+        </div>
 
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-2 mt-3">
+            <button class="btn btn-light rounded-5 text-danger" 
+                    [routerLink]="['/actualizarUsuario', miUsuario._id]">Actualizar</button>
+
+            <button class="btn btn-light rounded-5 text-danger" 
+                    (click)="eliminarUsuario(miUsuario._id)">Borrar</button>
+        </div>
     </div>
-  </div>
-</section>
-
+</div>

@@ -58,7 +58,7 @@ export class ActualizarUsuarioComponent {
   botonHecho() {
       if (this.userForm.valid) {
         toast.success('¡Usuario actualizado correctamente!');
-        // console.log('Datos del formulario:', this.userForm.value);
+       
         this.router.navigate(['/usuarios']);
       } else {
         toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');

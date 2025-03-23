@@ -20,7 +20,6 @@ export class VistaUsuarioComponent {
   router = inject(Router)
 
   async ngOnInit() {
-   // console.log(this.id)
 
    try{
      let response = await this.usuariosService.getById(this.id)
@@ -29,20 +28,18 @@ export class VistaUsuarioComponent {
        this.usuario = response;
        
       }else{
-        // console.log("Error al cargar el usuario", this.id)
-        toast.error('El ID de usuario no existe')
+        toast.error('La id no existe')
         this.router.navigate(['/usuarios']);
      }
 
    } catch(error){
-    //  console.log("Error al cargar el usuario", error)
-     toast.error("No se pudo cargar la información de usuario")
+     toast.error("Imposible cargar el usuario")
      this.router.navigate(['/usuarios']);
    }
   }
 
   eliminarUsuario(id: string) {
-    toast(`Vas a borrar al usuario ${this.usuario.first_name} ${this.usuario.last_name} `, {
+    toast(`Procedes a borrar al usuario ? ${this.usuario.first_name} ${this.usuario.last_name} `, {
   
       action: {
 

@@ -54,10 +54,10 @@ export class UsuarioNuevoComponent {
 
   botonHecho() {
     if (this.userForm.valid) {
-      toast.success('¡Usuario creado correctamente!');
+      toast.success('¡Enhorabuena, usuario creado!');
       this.router.navigate(['/usuarios']);
     } else {
-      toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');
+      toast.error('Por favor, rellena todos los campos obligatorios para poder continuar.');
       this.userForm.markAllAsTouched();
     }
   }
