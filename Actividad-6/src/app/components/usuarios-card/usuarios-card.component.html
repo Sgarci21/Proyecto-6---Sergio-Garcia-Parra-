@@ -21,6 +21,8 @@
 
             <button class="btn btn-light rounded-5 text-danger" 
                     (click)="eliminarUsuario(miUsuario._id)">Borrar</button>
+                    
+            <a [routerLink]="['/usuarios', miUsuario._id]" class="btn btn-light rounded-5 text-danger">Ver Perfil</a>
         </div>
     </div>
 </div>
