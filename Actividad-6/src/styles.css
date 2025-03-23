@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.bg-custom {
+    background-image: url("/images/madrid2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
