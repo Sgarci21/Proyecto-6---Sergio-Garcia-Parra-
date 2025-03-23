@@ -1,19 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { IUsuario } from '../interfaces/iusuario.interface';
+import { IResponse } from '../interfaces/iresponse.interface';
 
-export interface IUsuario {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-}
 
-export interface IResponse {
-  page: number;
-  total_pages: number;
-  results: IUsuario[];
-}
 
 @Injectable({
   providedIn: 'root'

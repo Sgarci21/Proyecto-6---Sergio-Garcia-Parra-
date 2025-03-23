@@ -5,16 +5,16 @@ import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr'; // Importa ToastrService
 
 @Component({
-  selector: 'app-usuario-vista',
+  selector: 'app-usuario-view',
   standalone: true,
   imports: [RouterModule], // Cambia RouterLink por RouterModule
   templateUrl: './usuarios-view.component.html',
   styleUrl: './usuarios-view.component.css'
 })
-export class UsuarioVistaComponent {
+export class UsuarioViewComponent {
   @Input() id: string = "";
   usuariosService = inject(UsuariosService);
-  usuario!: IUsuario;
+  usuario!: IUsuario; // Variable para almacenar un único usuario
   @Output() deleteItemEmit: EventEmitter<Boolean> = new EventEmitter();
   router = inject(Router);
   toast = inject(ToastrService); // Inyecta ToastrService
@@ -24,7 +24,7 @@ export class UsuarioVistaComponent {
       const response = await this.usuariosService.getById(this.id);
 
       if (response && response.id) {
-        this.usuario = response;
+        this.usuario = response; // Asigna el usuario obtenido a `this.usuario`
       } else {
         this.toast.error('El ID de usuario no existe', 'Error'); // Notificación de error
         this.router.navigate(['/usuarios']);

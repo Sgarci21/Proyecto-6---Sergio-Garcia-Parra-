@@ -1,21 +1,8 @@
-<header>
-  <app-nav></app-nav>
-</header>
-<main>
-  <div *ngIf="usuarios.length > 0; else noUsuarios">
-    <h2>Lista de Usuarios</h2>
-    <ul>
-      <li *ngFor="let usuario of usuarios">
-        {{ usuario.first_name }} {{ usuario.last_name }} - {{ usuario.email }}
-      </li>
-    </ul>
-  </div>
-  <ng-template #noUsuarios>
-    <p>No hay usuarios disponibles.</p>
-  </ng-template>
-</main>
-
-
-<!-- 
-<footer class="bg-danger text-light d-flex justify-content-center fixed-bottom py-3 ">AlvaroGarcia©copyright 2025</footer>
--->
+<body>
+  <header>
+    <app-header></app-header>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</body>
