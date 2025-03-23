@@ -1,19 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr'; // Importa ToastrService
 
 @Component({
-  selector: 'app-update-usuario',
+  selector: 'app-actualizar-usuario',
   standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './update-usuario.component.html',
-  styleUrl: './update-usuario.component.css'
+  imports: [ReactiveFormsModule, RouterModule], // Asegúrate de incluir RouterModule
+  templateUrl: './update-usuario.component.html', // Verifica que este archivo exista
+  styleUrl: './update-usuario.component.css' // Verifica que este archivo exista
 })
-export class UpdateUsuarioComponent {
+export class ActualizarUsuarioComponent {
+
   userForm: FormGroup;
   router = inject(Router);
-  toast = inject(ToastrService);
+  toast = inject(ToastrService); // Inyecta ToastrService
 
   constructor() {
     this.userForm = new FormGroup({
@@ -55,10 +56,10 @@ export class UpdateUsuarioComponent {
 
   botonHecho() {
     if (this.userForm.valid) {
-      this.toast.success('¡Usuario actualizado correctamente!');
+      this.toast.success('¡Usuario actualizado correctamente!', 'Éxito'); // Notificación de éxito
       this.router.navigate(['/usuarios']);
     } else {
-      this.toast.error('Por favor, rellena todos los campos correctamente antes de continuar.');
+      this.toast.error('Por favor, rellena todos los campos correctamente antes de continuar.', 'Error'); // Notificación de error
       this.userForm.markAllAsTouched();
     }
   }

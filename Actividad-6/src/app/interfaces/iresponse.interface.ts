@@ -1,13 +1,9 @@
-
 import { IUsuario } from "./iusuario.interface";
 
 export interface IResponse {
-    page: number;
-    per_page: number;
-    total: number;
-    total_pages: number;
-    results: IUsuario[];
-
+  page: number;
+  total_pages: number;
+  results: IUsuario[]; // Asegúrate de que `IUsuario` esté correctamente importado
 }
-    
+
 

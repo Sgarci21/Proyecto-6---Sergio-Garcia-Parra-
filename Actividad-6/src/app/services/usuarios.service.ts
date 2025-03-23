@@ -1,29 +1,38 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { IResponse } from '../interfaces/iresponse.interface';
+import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { IUsuario } from '../interfaces/iusuario.interface';
+
+export interface IUsuario {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
+export interface IResponse {
+  page: number;
+  total_pages: number;
+  results: IUsuario[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
-  private httpClient = inject(HttpClient)
-  private baseUrl: string = "https://peticiones.online/api/users"
+  private baseUrl: string = 'https://peticiones.online/api/users';
 
-  getAll(page: number =0): Promise<IResponse> {
-    let url = (page === 0) ? this.baseUrl : this.baseUrl + `?page=${page}`
-    return lastValueFrom(this.httpClient.get<IResponse>(url))
+  constructor(private http: HttpClient) {}
+
+  getAll(page: number = 0): Promise<IResponse> {
+    const url = page === 0 ? this.baseUrl : `${this.baseUrl}?page=${page}`;
+    return lastValueFrom(this.http.get<IResponse>(url));
   }
 
   getById(id: string): Promise<IUsuario> {
-    return lastValueFrom(this.httpClient.get<IUsuario>(`${this.baseUrl}/${id}`))
+    return lastValueFrom(this.http.get<IUsuario>(`${this.baseUrl}/${id}`));
   }
 
   delete(id: string): Promise<IUsuario> {
-    return lastValueFrom(this.httpClient.delete<IUsuario>(`${this.baseUrl}/${id}`))
-  }
-
-  constructor() { 
+    return lastValueFrom(this.http.delete<IUsuario>(`${this.baseUrl}/${id}`));
   }
 }

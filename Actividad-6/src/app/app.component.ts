@@ -1,38 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { NavComponent } from './shared/nav.component';
+import { UsuariosService, IUsuario } from './services/usuarios.service';
 import { ToastrService } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavComponent, BrowserAnimationsModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule, RouterOutlet, NavComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
-,
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'Proyecto 6 Sergio Garcia Parra';
+export class AppComponent implements OnInit {
+  title = 'Proyecto-6';
+  usuarios: IUsuario[] = []; // Variable para almacenar los usuarios
+  toastr = inject(ToastrService);
+  usuariosService = inject(UsuariosService);
 
-    constructor(private toastr: ToastrService) {} // Inyectar ToastrService
-  
-    showSuccess() {
-      // Usar ToastrService para mostrar una notificación de éxito
-      this.toastr.success('¡Operación exitosa!', 'Éxito');
-    }
-  
-    showError() {
-      // Usar ToastrService para mostrar una notificación de error
-      this.toastr.error('Algo salió mal', 'Error');
-    }
-  
-    showInfo() {
-      // Usar ToastrService para mostrar una notificación de información
-      this.toastr.info('Este es un mensaje informativo', 'Información');
-    }
-  
-    showWarning() {
-      // Usar ToastrService para mostrar una notificación de advertencia
-      this.toastr.warning('Este es un mensaje de advertencia', 'Advertencia');
+  async ngOnInit() {
+    try {
+      const response = await this.usuariosService.getAll();
+      this.usuarios = response.results; // Asigna los usuarios obtenidos
+    } catch (error) {
+      this.toastr.error('Error al cargar los usuarios', 'Error');
+      console.error('Error al cargar los usuarios:', error);
     }
   }
+}

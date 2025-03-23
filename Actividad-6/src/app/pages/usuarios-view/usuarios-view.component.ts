@@ -1,25 +1,23 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { UsuariosService } from '../../services/usuarios.service';
 import { IUsuario } from '../../interfaces/iusuario.interface';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import Swal from 'sweetalert2';
+import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr'; // Importa ToastrService
 
 @Component({
-  selector: 'app-usuarios-view',
+  selector: 'app-usuario-vista',
   standalone: true,
-  imports: [],
+  imports: [RouterModule], // Cambia RouterLink por RouterModule
   templateUrl: './usuarios-view.component.html',
   styleUrl: './usuarios-view.component.css'
 })
-export class UsuariosViewComponent {
+export class UsuarioVistaComponent {
   @Input() id: string = "";
   usuariosService = inject(UsuariosService);
   usuario!: IUsuario;
   @Output() deleteItemEmit: EventEmitter<Boolean> = new EventEmitter();
-
   router = inject(Router);
-  toast = inject(ToastrService); // Inyectamos ToastrService
+  toast = inject(ToastrService); // Inyecta ToastrService
 
   async ngOnInit() {
     try {
@@ -28,37 +26,27 @@ export class UsuariosViewComponent {
       if (response && response.id) {
         this.usuario = response;
       } else {
-        this.toast.error('El ID de usuario no existe'); // Cambiado a this.toast
+        this.toast.error('El ID de usuario no existe', 'Error'); // Notificación de error
         this.router.navigate(['/usuarios']);
       }
     } catch (error) {
-      this.toast.error('No se pudo cargar la información de usuario'); // Cambiado a this.toast
+      this.toast.error('No se pudo cargar la información del usuario', 'Error'); // Notificación de error
       this.router.navigate(['/usuarios']);
     }
   }
 
   eliminarUsuario(id: string) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: `Vas a borrar al usuario ${this.usuario.first_name} ${this.usuario.last_name}`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await this.usuariosService.delete(id);
-          if (this.deleteItemEmit.observed) {
-            this.deleteItemEmit.emit(true);
-          } else {
-            this.router.navigate(['/usuarios']);
-          }
-          this.toast.success('Usuario eliminado correctamente'); // Cambiado a this.toast
-        } catch (error) {
-          this.toast.error('Error al eliminar el usuario'); // Cambiado a this.toast
+    if (confirm(`¿Estás seguro de que deseas eliminar al usuario ${this.usuario.first_name} ${this.usuario.last_name}?`)) {
+      this.usuariosService.delete(id).then(() => {
+        if (this.deleteItemEmit.observed) {
+          this.deleteItemEmit.emit(true);
+        } else {
+          this.router.navigate(['/usuarios']);
         }
-      }
-    });
+        this.toast.success('Usuario eliminado correctamente', 'Éxito'); // Notificación de éxito
+      }).catch(() => {
+        this.toast.error('Error al eliminar el usuario', 'Error'); // Notificación de error
+      });
+    }
   }
 }
